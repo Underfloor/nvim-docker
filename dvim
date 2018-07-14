@@ -1,0 +1,12 @@
+#!/bin/bash
+# Docker Nvim ( dvim )
+
+if [[ "$1" = /* ]]; then
+	fileName="$(basename ${1})"
+	dirName="$(dirname ${1})"
+else
+	fileName="$1"
+	dirName="$(pwd)"
+fi
+
+docker run --rm -itv "$dirName":/src nvim /bin/bash -c "cd /src; nvim a.ts -c UpdateRemotePlugins -c quitall 2>&1 >/dev/null; nvim $fileName"
